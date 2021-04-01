@@ -12,7 +12,7 @@ services:
       REDIS_HOST: redis
     links:
       - redis
-    image: "hahaleyile/SeleniumYz"
+    image: "hahaleyile/yz"
   redis:
     image: "redis:alpine"
     mem_limit: 200m
