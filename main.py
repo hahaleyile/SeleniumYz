@@ -56,7 +56,7 @@ class Yz:
             if "精确查询" not in search_button.text:
                 raise Exception("Unknown button: %s" % search_button.text)
             search_button.click()
-            with open('keywords.json', encoding='utf-8') as f:
+            with open('config/keywords.json', encoding='utf-8') as f:
                 keywords: Dict = json.load(f)
                 precise_keywords: Dict = keywords.get('precise')
                 for precise_keyword in precise_keywords:
@@ -68,7 +68,7 @@ class Yz:
             if "模糊查询" not in search_button.text:
                 raise Exception("Unknown button: %s" % search_button.text)
             search_button.click()
-            with open('keywords.json', encoding='utf-8') as f:
+            with open('config/keywords.json', encoding='utf-8') as f:
                 keywords: Dict = json.load(f)
                 fuzzy_keywords: Dict = keywords.get('fuzzy')
                 for fuzzy_keyword in fuzzy_keywords:

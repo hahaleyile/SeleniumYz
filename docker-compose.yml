@@ -2,7 +2,7 @@ version: "3.9"
 services:
   selenium:
     volumes:
-      - <keywords.json-directory>:/app
+      - <keywords.json-directory>:/app/config
     environment:
       YZ_USERNAME: <yz-username>
       YZ_PASSWORD: <yz-password>
