@@ -1,6 +1,6 @@
 FROM hahaleyile/selenium_chrome_python
 
-COPY main.py keywords.json cronfile /app/
+COPY main.py cronfile /app/
 
 WORKDIR /app
 

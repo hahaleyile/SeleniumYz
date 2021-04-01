@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  selenium:
+    volumes:
+      - <keywords.json-directory>:/app
+    environment:
+      YZ_USERNAME: <yz-username>
+      YZ_PASSWORD: <yz-password>
+      CORP_ID: <corp-id>
+      CORP_SECRET: <corp-secret>
+      AGENT_ID: <agent-id>
+      REDIS_HOST: redis
+    links:
+      - redis
+    image: "hahaleyile/SeleniumYz"
+  redis:
+    image: "redis:alpine"
+    mem_limit: 200m
