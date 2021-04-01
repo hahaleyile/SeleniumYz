@@ -51,30 +51,28 @@ class Yz:
             self.driver.find_element_by_css_selector(".yz-pc-loginbtn input.yz_btn_login").click()
 
         if self.__str_tj_qecx in self.driver.title:
+            with open('config/keywords.json', encoding='utf-8') as f:
+                keywords: Dict = json.load(f)
 
             search_button = self.driver.find_elements_by_css_selector("li[onclick]")[0]
             if "精确查询" not in search_button.text:
                 raise Exception("Unknown button: %s" % search_button.text)
             search_button.click()
-            with open('config/keywords.json', encoding='utf-8') as f:
-                keywords: Dict = json.load(f)
-                precise_keywords: Dict = keywords.get('precise')
-                for precise_keyword in precise_keywords:
-                    for result in self.__search(precise_keyword):
-                        self.__wechat.send_text_message(content=result,
-                                                        to_user='|'.join(precise_keywords.get(precise_keyword)))
+            precise_keywords: Dict = keywords.get('precise')
+            for precise_keyword in precise_keywords:
+                for result in self.__search(precise_keyword):
+                    self.__wechat.send_text_message(content=result,
+                                                    to_user='|'.join(precise_keywords.get(precise_keyword)))
 
             search_button = self.driver.find_elements_by_css_selector("li[onclick]")[1]
             if "模糊查询" not in search_button.text:
                 raise Exception("Unknown button: %s" % search_button.text)
             search_button.click()
-            with open('config/keywords.json', encoding='utf-8') as f:
-                keywords: Dict = json.load(f)
-                fuzzy_keywords: Dict = keywords.get('fuzzy')
-                for fuzzy_keyword in fuzzy_keywords:
-                    for result in self.__search(fuzzy_keyword):
-                        self.__wechat.send_text_message(content=result,
-                                                        to_user='|'.join(fuzzy_keywords.get(fuzzy_keyword)))
+            fuzzy_keywords: Dict = keywords.get('fuzzy')
+            for fuzzy_keyword in fuzzy_keywords:
+                for result in self.__search(fuzzy_keyword):
+                    self.__wechat.send_text_message(content=result,
+                                                    to_user='|'.join(fuzzy_keywords.get(fuzzy_keyword)))
 
         else:
             raise Exception()
