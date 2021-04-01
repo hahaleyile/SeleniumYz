@@ -4,12 +4,12 @@ services:
     volumes:
       - <keywords.json-directory>:/app/config
     environment:
-      YZ_USERNAME: <yz-username>
-      YZ_PASSWORD: <yz-password>
-      CORP_ID: <corp-id>
-      CORP_SECRET: <corp-secret>
-      AGENT_ID: <agent-id>
-      REDIS_HOST: redis
+      - YZ_USERNAME=<yz-username>
+      - YZ_PASSWORD=<yz-password>
+      - CORP_ID=<corp-id>
+      - CORP_SECRET=<corp-secret>
+      - AGENT_ID=<agent-id>
+      - REDIS_HOST=redis
     links:
       - redis
     image: "hahaleyile/yz"
