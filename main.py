@@ -30,6 +30,7 @@ class Yz:
 
 
     def __search(self, keyword: str):
+        self.driver.find_element_by_css_selector("input#dwxx").clear()
         self.driver.find_element_by_css_selector("input#dwxx").send_keys(keyword)
         self.driver.find_element_by_css_selector("a.tj-seach-btn").click()
         time.sleep(1)
