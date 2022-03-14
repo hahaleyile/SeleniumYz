@@ -6,9 +6,9 @@ services:
     environment:
       - YZ_USERNAME=<yz-username>
       - YZ_PASSWORD=<yz-password>
-      - CORP_ID=<corp-id>
-      - CORP_SECRET=<corp-secret>
-      - AGENT_ID=<agent-id>
+      - CORP_ID=<wechat-corp-id>
+      - CORP_SECRET=<wechat-corp-secret>
+      - AGENT_ID=<wechat-agent-id>
       - REDIS_HOST=redis
     links:
       - redis

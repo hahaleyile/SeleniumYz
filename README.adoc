@@ -1,9 +1,63 @@
-= 项目说明
+// asciidoctor-pdf -a pdf-theme=basic-theme.yml -a scripts=cjk README.adoc
+= 研招网关键字结果监控
+v1.0, 2021-04-28
+:toc:
+:imagesdir: assets/images
+
+用户通过挂载配置文件，在 docker 中运行爬虫程序，
+将研招网的调剂信息通过微信发送通知。
+
+== 项目说明
+
+=== https://pypi.org/project/WeChatEnterprise-hahaleyile/[微信通知 python api]
+
+项目地址请点击 https://github.com/hahaleyile/WeChatEnterprise[链接]。
+
+本项目基于官方的 https://open.work.weixin.qq.com/api/doc/90000/90003/90556[企业微信 api] 进行二次开发。
+主要是将一些例如用户认证、发消息、发文件等主要功能用 python 打包成了库。
+其中 `access_token` 和 `media_id` 通过 redis 缓存，缓存标识加有前缀防止重名。
+
+
+=== https://hub.docker.com/r/hahaleyile/selenium_chrome_python[基于 alpine 安装有 selenium、python3.8、chrome 和 chinese fonts 的 docker 环境]
+
+项目的源码公开在 GitHub 仓库里。
+
+本项目解决了国外源连接不畅、系统时间未设置成东八区的问题。
+同时，selenium、chrome 和 chrome driver 均已安装完成，
+开发者可直接在 docker 容器内使用 selenium 调用浏览器的无头模式。
+
+=== https://github.com/hahaleyile/SeleniumYz[主项目]
 
 本项目用于根据关键字监控研招网的调剂信息。
-返回结果通过企业微信推送。
-可以是文本也可以是截图。
-截图还未开发。
+监控结果通过企业微信推送，用户通过加入企业微信号就能接收推送。
 
-通过挂载 /app/config 文件夹来读取 keywords.json 文件，
+docker 容器的部署配置可见 `docker-compose.yml` 文件。
+下面来详细说明：
+
+|===
+| 参数 | 作用
+
+| -v /app/config
+| 通过挂载 `/app/config` 文件夹来读取 `keywords.json` 文件，
 里面写有需要在调剂系统查询的关键字和推送用户。
+文件的内容写法见表格后：
+
+| -e YZ_USERNAME
+| 研招网用户名
+
+| -e YZ_PASSWORD
+| 研招网密码
+
+| REDIS_HOST
+| redis 的地址
+|===
+
+image::keywords-json.png[]
+
+== 成果展示
+
+在建立好 docker 容器、写好 `keywords.json` 文件后，
+就可以每隔一段时间收到微信通知了：
+
+image::wechat-notify.png[]
+

@@ -141,3 +141,6 @@ cython_debug/
 
 .idea
 config/keywords.json
+README.html
+README.pdf
+basic-theme.yml
